@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ponte Bonita Boutique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* COLORES Y VARIABLES */
+        :root { 
+            --rosa: #D8B4A6; 
+            --crema: #FFFDFB; 
+            --texto: #5A5452; 
+            --borde: #FFCDB2; 
+            --gris-suave: #F0EEEA; /* Nuevo gris para el fondo del footer */
+            --texto-discreto: #A09C99; /* Gris suave para el texto legal */
+        }
+
+        /* RESET Y ESTILOS GLOBALES */
+        * { box-sizing: border-box; transition: 0.3s; }
+        body { background: var(--crema); font-family: 'Montserrat', sans-serif; margin: 0; color: var(--texto); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* CONTACTOS Y NAVEGACIÓN SUPERIOR */
+        .top-nav { display: flex; justify-content: center; gap: 20px; padding: 12px; background: white; border-bottom: 1px solid var(--borde); font-size: 0.75rem; letter-spacing: 1px; }
+        .top-nav a { text-decoration: none; color: var(--rosa); font-weight: 600; text-transform: uppercase; }
+
+        /* HEADER Y LOGO */
+        header { text-align: center; padding: 30px 20px 10px; }
+        .logo { font-family: 'Great Vibes', cursive; font-size: 3.8rem; color: var(--rosa); margin: 0; cursor: pointer; }
+        
+        /* BUSCADOR */
+        .search-container { text-align: center; margin: 20px 0; }
+        #searchBar { width: 85%; max-width: 400px; padding: 12px 20px; border: 1px solid var(--borde); border-radius: 25px; outline: none; font-family: 'Montserrat'; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(216, 180, 166, 0.1); }
+
+        /* GRILLA DE PRODUCTOS */
+        .contenedor { max-width: 1000px; margin: auto; padding: 10px; flex: 1; width: 100%; }
+        .grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        
+        /* TARJETA DE PRODUCTO */
+        .tarjeta { background: white; border-radius: 15px; overflow: hidden; border: 1px solid var(--borde); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .tarjeta:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(216, 180, 166, 0.2); }
+        
+        .foto-contenedor { width: 100%; aspect-ratio: 1 / 1.2; background: #fefefe; }
+        .foto-contenedor img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .info { padding: 12px; text-align: center; }
+        .info h3 { font-family: 'Playfair Display', serif; margin: 0; font-size: 1rem; height: 2.4em; overflow: hidden; color: var(--texto); }
+        .precio { color: var(--rosa); font-weight: 600; font-size: 1.1rem; margin-top: 5px; }
+
+        /* FOOTER Y AVISO LEGAL DISCRETO */
+        footer { padding: 30px 20px; text-align: center; border-top: 1px solid var(--borde); background-color: var(--gris-suave); margin-top: 40px;}
+        .footer-copyright { font-size: 0.75rem; color: var(--texto); letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;}
+        .disclaimer-discreto { font-size: 0.6rem; line-height: 1.4; color: var(--texto-discreto); max-width: 600px; margin: 0 auto; }
+        .disclaimer-discreto b { color: #888; text-transform: uppercase;}
+
+        /* MODAL DE DETALLES */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .modal-contenido { background: white; padding: 25px; border-radius: 20px; max-width: 400px; width: 100%; text-align: center; position: relative; }
+        .btn-cerrar { position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 28px; cursor: pointer; color: #ddd; }
+        
+        .img-detalle { width: 100%; border-radius: 12px; margin-bottom: 15px; max-height: 350px; object-fit: cover; }
+        .btn-wspp { display: block; background: var(--rosa); color: white; text-decoration: none; padding: 16px; border-radius: 12px; font-weight: 600; margin-top: 15px; text-transform: uppercase; font-size: 0.8rem; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <a href="https://instagram.com/pontebonita_santafe/" target="_blank">Instagram</a>
+        <a href="https://wa.me/5493425578649" target="_blank">WhatsApp</a>
+    </nav>
+
+    <header>
+        <h1 class="logo" onclick="location.reload()">Ponte Bonita</h1>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Buscar prenda o maquillaje..." onkeyup="render()">
+    </div>
+
+    <div class="contenedor">
+        <div class="grilla" id="miGrilla"></div>
+    </div>
+
+    <footer>
+        <div class="footer-copyright">&copy; 2026 PONTE BONITA BOUTIQUE - SANTA FE</div>
+        <p class="disclaimer-discreto">
+            <b>Información:</b> Este sitio es un catálogo digital informativo. La disponibilidad de los productos y los precios pueden variar sin previo aviso. Las compras y envíos se coordinan exclusivamente a través de nuestra línea de WhatsApp oficial.
+        </p>
+    </footer>
+
+    <div id="miModal" class="modal">
+        <div class="modal-contenido">
+            <button class="btn-cerrar" onclick="cerrar()">&times;</button>
+            <img id="detImg" class="img-detalle" src="">
+            <h2 id="detTit" style="font-family: 'Playfair Display'; margin: 10px 0;"></h2>
+            <p id="detPre" class="precio"></p>
+            <a id="detLnk" class="btn-wspp" target="_blank">Consultar por WhatsApp</a>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // --- BASE DE DATOS DE PRODUCTOS ---
+        // ==========================================
+        const db = [
+            {
+                nombre: "Labiales Gold Edition",
+                precio: "15.000",
+                // USANDO EL LINK DE ALTA CALIDAD QUE PASASTE:
+                foto: "https://i.ibb.co/1YQw4qL1/1.jpg" 
+            },
+            {
+                nombre: "Nuevo Ingreso",
+                precio: "0.00",
+                foto: "https://via.placeholder.com/400?text=Cargando+Imagen" 
+            }
+        ];
+        // ==========================================
+
+        function render() {
+            const grilla = document.getElementById('miGrilla');
+            const buscar = document.getElementById('searchBar').value.toLowerCase();
+            grilla.innerHTML = '';
+
+            db.forEach((p, i) => {
+                if (p.nombre.toLowerCase().includes(buscar)) {
+                    grilla.innerHTML += `
+                        <div class="tarjeta" onclick="abrir(${i})">
+                            <div class="foto-contenedor"><img src="${p.foto}"></div>
+                            <div class="info">
+                                <h3>${p.nombre}</h3>
+                                <div class="precio">$${p.precio}</div>
+                            </div>
+                        </div>`;
+                }
+            });
+        }
+
+        function abrir(i) {
+            const p = db[i];
+            document.getElementById('detImg').src = p.foto;
+            document.getElementById('detTit').innerText = p.nombre;
+            document.getElementById('detPre').innerText = "$" + p.precio;
+            const msj = encodeURIComponent("¡Hola! Me interesa este producto: " + p.nombre);
+            document.getElementById('detLnk').href = "https://wa.me/5493425578649?text=" + msj;
+            document.getElementById('miModal').style.display = 'flex';
+        }
+
+        function cerrar() { document.getElementById('miModal').style.display = 'none'; }
+        window.onclick = (e) => { if (e.target.className === 'modal') cerrar(); }
+        
+        window.onload = render;
+    </script>
+</body>
+</html>
