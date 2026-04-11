@@ -3,79 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ponte Bonita Boutique</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <title>Ponte Bonita - Catálogo Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* COLORES Y VARIABLES */
         :root { 
-            --rosa: #D8B4A6; 
-            --crema: #FFFDFB; 
-            --texto: #5A5452; 
-            --borde: #FFCDB2; 
-            --gris-suave: #F0EEEA; /* Nuevo gris para el fondo del footer */
-            --texto-discreto: #A09C99; /* Gris suave para el texto legal */
+            --rosa-soft: #f4dcd3; 
+            --crema: #fffaf8; 
+            --texto: #5a5553; 
+            --blanco-tarjeta: #ffffff;
+            --rosa-fuerte: #d8b4a6;
+            --header-bg: #f7ded5;
+            --transicion: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* RESET Y ESTILOS GLOBALES */
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { background: var(--crema); font-family: 'Montserrat', sans-serif; margin: 0; color: var(--texto); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* CONTACTOS Y NAVEGACIÓN SUPERIOR */
-        .top-nav { display: flex; justify-content: center; gap: 20px; padding: 12px; background: white; border-bottom: 1px solid var(--borde); font-size: 0.75rem; letter-spacing: 1px; }
-        .top-nav a { text-decoration: none; color: var(--rosa); font-weight: 600; text-transform: uppercase; }
+        [data-theme="dark"] {
+            --crema: #1a1817;
+            --texto: #f2e9e4;
+            --blanco-tarjeta: #252322;
+            --rosa-soft: #4a4543;
+            --header-bg: #2a2624;
+        }
 
-        /* HEADER Y LOGO */
-        header { text-align: center; padding: 30px 20px 10px; }
-        .logo { font-family: 'Great Vibes', cursive; font-size: 3.8rem; color: var(--rosa); margin: 0; cursor: pointer; }
+        * { box-sizing: border-box; outline: none; margin: 0; padding: 0; }
         
-        /* BUSCADOR */
-        .search-container { text-align: center; margin: 20px 0; }
-        #searchBar { width: 85%; max-width: 400px; padding: 12px 20px; border: 1px solid var(--borde); border-radius: 25px; outline: none; font-family: 'Montserrat'; font-size: 0.9rem; box-shadow: 0 2px 10px rgba(216, 180, 166, 0.1); }
+        body { 
+            background-color: var(--crema); 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--texto); 
+            overflow-x: hidden;
+            transition: var(--transicion);
+        }
+
+        /* BANNER PRINCIPAL */
+        header { 
+            width: 100%;
+            background-color: var(--header-bg);
+            line-height: 0;
+        }
+
+        .banner-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .header-banner { 
+            width: 100%; 
+            height: auto;
+            display: block;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* BARRA DE NAVEGACIÓN Y BÚSQUEDA REDISEÑADA */
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--crema);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transicion);
+        }
+
+        .search-wrapper {
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        #searchBar { 
+            width: 100%; 
+            padding: 14px 25px; 
+            padding-left: 50px;
+            border: 1px solid var(--rosa-soft);
+            border-radius: 50px; 
+            background-color: var(--blanco-tarjeta); 
+            color: var(--texto); 
+            font-family: 'Montserrat';
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--rosa-fuerte);
+        }
+
+        #searchBar:focus {
+            border-color: var(--rosa-fuerte);
+            box-shadow: 0 0 15px rgba(216, 180, 166, 0.2);
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-nav a {
+            color: var(--rosa-fuerte);
+            font-size: 1.3rem;
+            transition: 0.3s;
+        }
+
+        .social-nav a:hover { transform: scale(1.1); color: var(--texto); }
 
         /* GRILLA DE PRODUCTOS */
-        .contenedor { max-width: 1000px; margin: auto; padding: 10px; flex: 1; width: 100%; }
-        .grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .contenedor { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
         
-        /* TARJETA DE PRODUCTO */
-        .tarjeta { background: white; border-radius: 15px; overflow: hidden; border: 1px solid var(--borde); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .tarjeta:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(216, 180, 166, 0.2); }
+        .tarjeta { 
+            cursor: pointer; text-align: center; background: var(--blanco-tarjeta); 
+            border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); 
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .tarjeta:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         
-        .foto-contenedor { width: 100%; aspect-ratio: 1 / 1.2; background: #fefefe; }
-        .foto-contenedor img { width: 100%; height: 100%; object-fit: cover; }
+        .foto-contenedor { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: #fff; }
+        .carru-track { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease; }
+        .carru-track img { min-width: 100%; width: 100%; height: 100%; object-fit: cover; }
         
-        .info { padding: 12px; text-align: center; }
-        .info h3 { font-family: 'Playfair Display', serif; margin: 0; font-size: 1rem; height: 2.4em; overflow: hidden; color: var(--texto); }
-        .precio { color: var(--rosa); font-weight: 600; font-size: 1.1rem; margin-top: 5px; }
+        .info { padding: 20px; }
+        .info h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 8px; font-weight: 500; }
+        .precio { color: var(--rosa-fuerte); font-weight: 700; font-size: 1.2rem; }
 
-        /* FOOTER Y AVISO LEGAL DISCRETO */
-        footer { padding: 30px 20px; text-align: center; border-top: 1px solid var(--borde); background-color: var(--gris-suave); margin-top: 40px;}
-        .footer-copyright { font-size: 0.75rem; color: var(--texto); letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;}
-        .disclaimer-discreto { font-size: 0.6rem; line-height: 1.4; color: var(--texto-discreto); max-width: 600px; margin: 0 auto; }
-        .disclaimer-discreto b { color: #888; text-transform: uppercase;}
+        /* MODAL */
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.7); z-index: 5000; 
+            justify-content: center; align-items: center; opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .modal.open { display: flex; opacity: 1; }
+        .modal-contenido { 
+            display: flex; width: 95%; max-width: 1000px; height: 80vh; 
+            background: var(--blanco-tarjeta); position: relative; 
+            border-radius: 30px; overflow: hidden;
+        }
 
-        /* MODAL DE DETALLES */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
-        .modal-contenido { background: white; padding: 25px; border-radius: 20px; max-width: 400px; width: 100%; text-align: center; position: relative; }
-        .btn-cerrar { position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 28px; cursor: pointer; color: #ddd; }
+        .img-box { flex: 1; position: relative; background: #fff; overflow: hidden; cursor: none; display: flex; align-items: center; justify-content: center; }
+        #detImg { max-width: 90%; max-height: 90%; object-fit: contain; pointer-events: none; }
+        #lupa {
+            position: absolute; border: 2px solid var(--rosa-fuerte); border-radius: 50%;
+            width: 200px; height: 200px; pointer-events: none; display: none;
+            background-repeat: no-repeat; z-index: 5100;
+        }
+
+        .detalles-box { flex: 0.8; padding: 40px; display: flex; flex-direction: column; justify-content: center; background-color: var(--crema); }
+        .precio-modal { font-size: 2.5rem; color: var(--rosa-fuerte); margin-bottom: 20px; font-weight: 700; }
         
-        .img-detalle { width: 100%; border-radius: 12px; margin-bottom: 15px; max-height: 350px; object-fit: cover; }
-        .btn-wspp { display: block; background: var(--rosa); color: white; text-decoration: none; padding: 16px; border-radius: 12px; font-weight: 600; margin-top: 15px; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-wspp { 
+            padding: 16px; background: var(--rosa-fuerte); color: white; text-decoration: none; 
+            font-weight: 600; text-align: center; border-radius: 50px; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
+        }
+        .btn-wspp:hover { filter: brightness(1.1); }
 
+        .btn-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); color: var(--rosa-fuerte); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; z-index: 5200; }
+        .btn-cerrar { position: absolute; top: 20px; right: 25px; background: none; border: none; font-size: 2rem; color: #d3c9c6; cursor: pointer; z-index: 5300; }
+
+        /* FOOTER */
+        footer { text-align: center; padding: 60px 20px; border-top: 1px solid var(--rosa-soft); background: var(--blanco-tarjeta); }
+        .brand-name-footer { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--rosa-fuerte); margin-bottom: 10px; }
+        .disclaimer { font-size: 0.8rem; color: #8a817d; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+        .credits { margin-top: 25px; font-weight: bold; color: var(--rosa-fuerte); font-size: 0.85rem; letter-spacing: 2px; }
+
+        .theme-toggle {
+            position: fixed; bottom: 25px; right: 25px; z-index: 4000;
+            background: var(--rosa-fuerte); color: white; border: none;
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;
+        }
+
+        @media (max-width: 800px) { 
+            .modal-contenido { flex-direction: column; height: 90vh; } 
+            .detalles-box { padding: 30px; text-align: center; }
+            #lupa { display: none !important; }
+            .img-box { height: 50%; }
+        }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
-    <nav class="top-nav">
-        <a href="https://instagram.com/pontebonita_santafe/" target="_blank">Instagram</a>
-        <a href="https://wa.me/5493425578649" target="_blank">WhatsApp</a>
-    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn"><i class="fas fa-moon"></i></button>
 
     <header>
-        <h1 class="logo" onclick="location.reload()">Ponte Bonita</h1>
+        <div class="banner-container">
+            <img src="https://i.postimg.cc/RF4ChG4w/background-size-cover.png" alt="Ponte Bonita Banner" class="header-banner">
+        </div>
     </header>
 
-    <div class="search-container">
-        <input type="text" id="searchBar" placeholder="Buscar prenda o maquillaje..." onkeyup="render()">
+    <div class="nav-container">
+        <div class="social-nav">
+            <a href="https://wa.me/5493425578649" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/pontebonita_santafe/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchBar" placeholder="¿Qué estás buscando hoy?" onkeyup="render()">
+        </div>
     </div>
 
     <div class="contenedor">
@@ -83,73 +215,170 @@
     </div>
 
     <footer>
-        <div class="footer-copyright">&copy; 2026 PONTE BONITA BOUTIQUE - SANTA FE</div>
-        <p class="disclaimer-discreto">
-            <b>Información:</b> Este sitio es un catálogo digital informativo. La disponibilidad de los productos y los precios pueden variar sin previo aviso. Las compras y envíos se coordinan exclusivamente a través de nuestra línea de WhatsApp oficial.
+        <h2 class="brand-name-footer">Ponte Bonita</h2>
+        <p class="disclaimer">
+            Los precios y stock están sujetos a cambios. Imágenes con fines ilustrativos. 
+            <br>© 2026 Ponte Bonita SF - Todos los derechos reservados.
         </p>
+        <div class="credits">DEVELOPED BY <b>MANUEL</b></div>
     </footer>
 
     <div id="miModal" class="modal">
         <div class="modal-contenido">
-            <button class="btn-cerrar" onclick="cerrar()">&times;</button>
-            <img id="detImg" class="img-detalle" src="">
-            <h2 id="detTit" style="font-family: 'Playfair Display'; margin: 10px 0;"></h2>
-            <p id="detPre" class="precio"></p>
-            <a id="detLnk" class="btn-wspp" target="_blank">Consultar por WhatsApp</a>
+            <button class="btn-cerrar" onclick="cerrar()">&#10005;</button>
+            <div class="img-box" id="imgBox">
+                <div id="lupa"></div>
+                <button class="btn-nav" style="left:15px" id="btnPrevModal">&#10094;</button>
+                <img id="detImg" src="">
+                <button class="btn-nav" style="right:15px" id="btnNextModal">&#10095;</button>
+            </div>
+            <div class="detalles-box">
+                <h2 id="detTit" style="font-family: 'Playfair Display'; font-size: 1.8rem;"></h2>
+                <h3 id="detTono" style="font-family: 'Montserrat'; font-weight: 300; color: #8a817d; margin: 10px 0;"></h3>
+                <span id="detPre" class="precio-modal"></span>
+                <a id="detLnk" class="btn-wspp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Consultar Disponibilidad
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // --- BASE DE DATOS DE PRODUCTOS ---
-        // ==========================================
+        // Los mismos 42 productos del catálogo
         const db = [
-            {
-                nombre: "Labiales Gold Edition",
-                precio: "15.000",
-                // USANDO EL LINK DE ALTA CALIDAD QUE PASASTE:
-                foto: "https://i.ibb.co/1YQw4qL1/1.jpg" 
-            },
-            {
-                nombre: "Nuevo Ingreso",
-                precio: "0.00",
-                foto: "https://via.placeholder.com/400?text=Cargando+Imagen" 
-            }
+            { t: "Ampollas Capilares", p: "1.500", items: [{n:"Vitamina", i:"https://i.ibb.co/LdjCMB1P/Ampollas.jpg"}]},
+            { t: "Arqueadores", p: "4.000", items: [{n:"Estándar", i:"https://i.ibb.co/7HrCwhD/Arqueadores.jpg"}]},
+            { t: "Bálsamos Frutales", p: "2.000", items: [{n:"Limón", i:"https://i.ibb.co/jPfHhzj0/Balsamo-Limon.jpg"}, {n:"Manzana", i:"https://i.ibb.co/Kzytfspw/Balsamo-Manzana.jpg"}]},
+            { t: "Base + Corrector", p: "5.000", items: [{n:"Duo", i:"https://i.ibb.co/1fJwDmDH/Base-Corrector.jpg"}]},
+            { t: "Base Líquida", p: "4.000", items: [{n:"Mate", i:"https://i.ibb.co/m5X0hPz2/Base-Liquida.jpg"}]},
+            { t: "Blusher en Barra", p: "4.000", items: [{n:"Cremoso", i:"https://i.ibb.co/ZpZBCP5F/Blusher-En-Barra.jpg"}]},
+            { t: "Blushers en Polvo", p: "4.500", items: [{n:"Tono 1", i:"https://i.ibb.co/G4m6H1xt/Blusher-En-Polvo1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/rRXyw4v1/Blusher-En-Polvo2.jpg"}, {n:"Tono 3", i:"https://i.ibb.co/tTdKC7bJ/Blusher-En-Polvo3.jpg"}]},
+            { t: "Blusher Líquido", p: "4.500", items: [{n:"Natural", i:"https://i.ibb.co/MyFwcMKm/Blusher-Liquido.jpg"}]},
+            { t: "Cera para Cejas", p: "4.000", items: [{n:"Fijadora", i:"https://i.ibb.co/Cpm3HTdW/Cera-Para-Cejas.jpg"}]},
+            { t: "Colonia AMBRE", p: "7.500", items: [{n:"Fragancia", i:"https://i.ibb.co/Rp29PYt3/Colonia-AMBRE.jpg"}]},
+            { t: "Crema para Manos", p: "4.000", items: [{n:"Hidratante", i:"https://i.ibb.co/F4WXKyQx/Crema-Para-Manos.jpg"}]},
+            { t: "Delineadores Líquidos", p: "3.000", items: [{n:"Azul", i:"https://i.ibb.co/xKMBGFYT/Delineador-Liquido-Azul.jpg"}, {n:"Negro", i:"https://i.ibb.co/dJVgWWD0/Delineador-Liquido-Negro.jpg"}, {n:"Rojo", i:"https://i.ibb.co/MxzBTqVd/Delineador-Liquido-Rojo.jpg"}]},
+            { t: "Delineadores de Labios", p: "2.000", items: [{n:"Set", i:"https://i.ibb.co/j9bXqV6Z/Delineadores-De-Labios.jpg"}]},
+            { t: "Esponjas Desmaquillantes", p: "1.500", items: [{n:"Tono 1", i:"https://i.ibb.co/RkDM5cb1/Esponjas-Desmaquillantes1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/Ds4qY4p/Esponjas-Desmaquillantes2.jpg"}, {n:"Tono 3", i:"https://i.ibb.co/LXYcMqfT/Esponjas-Desmaquillantes3.jpg"}]},
+            { t: "Esponjas x3", p: "2.700", items: [{n:"Pack", i:"https://i.ibb.co/kVGq4CRR/Esponjas-X3.jpg"}]},
+            { t: "Gloss Coco", p: "2.600", items: [{n:"Coco", i:"https://i.ibb.co/Kxh203nY/Gloss-Coco.jpg"}]},
+            { t: "Gloss Jelly Wow", p: "3.000", items: [{n:"Brillo", i:"https://i.ibb.co/CsHK2vyY/Gloss-Jelly-Wow.jpg"}]},
+            { t: "Gloss SHEGLAM", p: "3.000", items: [{n:"Premium", i:"https://i.ibb.co/d0ty4dQ0/Gloss-SHEIGLAM.jpg"}]},
+            { t: "Iluminador en Barra", p: "4.000", items: [{n:"Barra", i:"https://i.ibb.co/gLXqV0BZ/Iluminador-En-Barra.jpg"}]},
+            { t: "Labial Lip Stick", p: "2.500", items: [{n:"Clásico", i:"https://i.ibb.co/fd629Yyc/Labial-Lip-Stick.jpg"}]},
+            { t: "Labial Mate Oso", p: "4.000", items: [{n:"Cerrado", i:"https://i.ibb.co/Q30c9pCP/Labial-Mate-Oso-Close.jpg"}, {n:"Abierto", i:"https://i.ibb.co/jZBdZXcg/Labial-Mate-Oso-Open.jpg"}]},
+            { t: "Labiales Mate", p: "2.500", items: [{n:"Tono 1", i:"https://i.ibb.co/LXchr5j7/Labial-Mate1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/23MtgNVF/Labial-Mate2.jpg"}]},
+            { t: "Labial Miss Lara Matte", p: "4.000", items: [{n:"Lara", i:"https://i.ibb.co/VppW76CY/Labial-Miss-Lara-Matte.jpg"}]},
+            { t: "Labiales Vivid", p: "3.000", items: [{n:"Tono 1", i:"https://i.ibb.co/6R3kKMdJ/Labiales-Vivid1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/TMXR3JMc/Labiales-Vivid2.jpg"}, {n:"Tono 3", i:"https://i.ibb.co/dwqg8CHY/Labiales-Vivid3.jpg"}, {n:"Tono 4", i:"https://i.ibb.co/PzhwY09h/Labiales-Vivid4.jpg"}]},
+            { t: "Lápiz Delineador Negro", p: "1.500", items: [{n:"Negro", i:"https://i.ibb.co/h1xvy1Vw/Lapiz-Delineador-Negro.jpg"}]},
+            { t: "Lápiz Pink 21", p: "1.500", items: [{n:"Pink", i:"https://i.ibb.co/DjvLrZ6/Lapiz-Delineador-Pink-21.jpg"}]},
+            { t: "Lip Gloss + Delineador", p: "4.100", items: [{n:"Opción 1", i:"https://i.ibb.co/jvjxw2CX/Lip-Gloss-Delineador1.jpg"}, {n:"Opción 2", i:"https://i.ibb.co/WvtDQ9nT/Lip-Gloss-Delineador2.jpg"}, {n:"Opción 3", i:"https://i.ibb.co/5h6hfvJQ/Lip-Gloss-Delineador3.jpg"}]},
+            { t: "Lip Gloss Pure Matte", p: "4.000", items: [{n:"Tono 1", i:"https://i.ibb.co/twDmsxGw/Lip-Gloss-Pure-Matte1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/Q3YZXGPB/Lip-Gloss-Pure-Matte2.jpg"}, {n:"Tono 3", i:"https://i.ibb.co/7xB0jmc5/Lip-Gloss-Pure-Matte3.jpg"}, {n:"Tono 4", i:"https://i.ibb.co/20ts2Q8y/Lip-Gloss-Pure-Matte4.jpg"}]},
+            { t: "Lip Gloss Uva", p: "3.000", items: [{n:"Uva", i:"https://i.ibb.co/PvK3DLvB/Lip-Gloss-Uva.jpg"}]},
+            { t: "Lip Stick Matte", p: "4.000", items: [{n:"Tono 1", i:"https://i.ibb.co/RTwXmDxH/Lip-Stick-Matte1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/5WnH5B2G/Lip-Stick-Matte2.jpg"}]},
+            { t: "New Lip Gloss", p: "3.500", items: [{n:"Opción 1", i:"https://i.ibb.co/39xhvmg2/New-Lip-Gloss1.jpg"}, {n:"Opción 2", i:"https://i.ibb.co/mrJ9ZfBJ/New-Lip-Gloss2.jpg"}]},
+            { t: "Perfilador x3", p: "2.500", items: [{n:"Pack", i:"https://i.ibb.co/MW9ZJm4/Perfilador-x3.jpg"}]},
+            { t: "Polvo Mineral", p: "6.000", items: [{n:"Mineral", i:"https://i.ibb.co/Qvpz6h1z/Polvo-Mineral.jpg"}]},
+            { t: "Primer Base", p: "4.500", items: [{n:"Primer", i:"https://i.ibb.co/ZpBmBGvK/Primer-Base.jpg"}]},
+            { t: "Protector Térmico", p: "4.000", items: [{n:"Cabello", i:"https://i.ibb.co/21Wd1Q8V/Protector-Termico.jpg"}]},
+            { t: "Rímel BB Waterproof", p: "5.000", items: [{n:"Tipo 1", i:"https://i.ibb.co/Q7gh6f4B/Rimel-BB-Waterproof.jpg"}, {n:"Tipo 2", i:"https://i.ibb.co/JjZfwrKb/Rimel-BB-Waterproof2.jpg"}, {n:"Tipo 3", i:"https://i.ibb.co/6JZywZjC/Rimel-BB-Waterproof3.jpg"}]},
+            { t: "Rímel Naranja", p: "3.500", items: [{n:"Volumen", i:"https://i.ibb.co/zhNFpkKf/Rimel-Naranja.jpg"}]},
+            { t: "Set Brochas x5", p: "4.000", items: [{n:"Set", i:"https://i.ibb.co/SDV2bhKf/Set-De-Brochas-X5.jpg"}]},
+            { t: "Sombra + Iluminador", p: "7.000", items: [{n:"Duo", i:"https://i.ibb.co/8LfdsvMQ/Sombra-iluminador.jpg"}]},
+            { t: "Sombras x8", p: "6.000", items: [{n:"Paleta", i:"https://i.ibb.co/KctDp25Q/Sombras-X8.jpg"}]},
+            { t: "Tei Matte Lip Gloss", p: "4.000", items: [{n:"Cerrado", i:"https://i.ibb.co/hxJj001Z/Tei-Matte-Lip-Gloss-Close.jpg"}, {n:"Abierto", i:"https://i.ibb.co/JwcKCcxY/Tei-Matte-Lip-Gloss-Open.jpg"}]},
+            { t: "Tinte Labial", p: "4.000", items: [{n:"Tono 1", i:"https://i.ibb.co/jPw5t2mk/Tinte-Labial1.jpg"}, {n:"Tono 2", i:"https://i.ibb.co/vx5677pZ/Tinte-Labial2.jpg"}]}
         ];
-        // ==========================================
+
+        let pAct = null, iAct = 0, intervals = {};
+        const clean = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
         function render() {
-            const grilla = document.getElementById('miGrilla');
-            const buscar = document.getElementById('searchBar').value.toLowerCase();
-            grilla.innerHTML = '';
-
+            const g = document.getElementById('miGrilla');
+            const q = clean(document.getElementById('searchBar').value);
+            g.innerHTML = '';
             db.forEach((p, i) => {
-                if (p.nombre.toLowerCase().includes(buscar)) {
-                    grilla.innerHTML += `
-                        <div class="tarjeta" onclick="abrir(${i})">
-                            <div class="foto-contenedor"><img src="${p.foto}"></div>
-                            <div class="info">
-                                <h3>${p.nombre}</h3>
-                                <div class="precio">$${p.precio}</div>
-                            </div>
-                        </div>`;
+                if (clean(p.t).includes(q)) {
+                    let imgs = p.items.map(it => `<img src="${it.i}">`).join('');
+                    g.innerHTML += `
+                    <div class="tarjeta" onclick="abrir(${i})" onmouseenter="startC(${i})" onmouseleave="stopC(${i})">
+                        <div class="foto-contenedor"><div class="carru-track" id="t-${i}">${imgs}</div></div>
+                        <div class="info"><h3>${p.t}</h3><div class="precio">$${p.p}</div></div>
+                    </div>`;
                 }
             });
         }
 
-        function abrir(i) {
-            const p = db[i];
-            document.getElementById('detImg').src = p.foto;
-            document.getElementById('detTit').innerText = p.nombre;
-            document.getElementById('detPre').innerText = "$" + p.precio;
-            const msj = encodeURIComponent("¡Hola! Me interesa este producto: " + p.nombre);
-            document.getElementById('detLnk').href = "https://wa.me/5493425578649?text=" + msj;
-            document.getElementById('miModal').style.display = 'flex';
+        function startC(id) {
+            const track = document.getElementById(`t-${id}`);
+            const count = track.children.length;
+            if (count <= 1) return;
+            let idx = 0;
+            intervals[id] = setInterval(() => {
+                idx = (idx + 1) % count;
+                track.style.transform = `translateX(-${idx * 100}%)`;
+            }, 1400);
         }
 
-        function cerrar() { document.getElementById('miModal').style.display = 'none'; }
-        window.onclick = (e) => { if (e.target.className === 'modal') cerrar(); }
-        
+        function stopC(id) {
+            clearInterval(intervals[id]);
+            const track = document.getElementById(`t-${id}`);
+            if(track) track.style.transform = 'translateX(0)';
+        }
+
+        function abrir(idx) {
+            pAct = db[idx]; iAct = 0;
+            actualizarModal();
+            const m = document.getElementById('miModal');
+            m.style.display = 'flex';
+            setTimeout(() => m.classList.add('open'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function actualizarModal() {
+            const it = pAct.items[iAct];
+            const img = document.getElementById('detImg');
+            const lup = document.getElementById('lupa');
+            img.style.opacity = 0;
+            img.src = it.i;
+            lup.style.backgroundImage = `url('${it.i}')`;
+            setTimeout(() => { img.style.opacity = 1; }, 150);
+            document.getElementById('detTit').innerText = pAct.t;
+            document.getElementById('detTono').innerText = it.n.toLowerCase().includes("tono") ? it.n : "";
+            document.getElementById('detPre').innerText = "$" + pAct.p;
+            document.getElementById('detLnk').href = `https://wa.me/5493425578649?text=Hola! Consulto por: ${pAct.t}`;
+        }
+
+        const imgBox = document.getElementById('imgBox'), lupa = document.getElementById('lupa'), detImg = document.getElementById('detImg');
+        imgBox.addEventListener('mousemove', (e) => {
+            if(window.innerWidth <= 800) return;
+            lupa.style.display = 'block';
+            const r = imgBox.getBoundingClientRect();
+            const x = e.clientX - r.left, y = e.clientY - r.top;
+            lupa.style.left = `${x - 100}px`; lupa.style.top = `${y - 100}px`;
+            const z = 2.5;
+            lupa.style.backgroundSize = `${detImg.offsetWidth * z}px ${detImg.offsetHeight * z}px`;
+            lupa.style.backgroundPosition = `-${(x * z) - 100}px -${(y * z) - 100}px`;
+        });
+        imgBox.addEventListener('mouseleave', () => lupa.style.display = 'none');
+
+        function cerrar() { 
+            const m = document.getElementById('miModal');
+            m.classList.remove('open');
+            setTimeout(() => m.style.display = 'none', 400);
+            document.body.style.overflow = 'auto'; 
+        }
+
+        function toggleTheme() {
+            const b = document.body;
+            const dark = b.getAttribute('data-theme') === 'dark';
+            b.setAttribute('data-theme', dark ? 'light' : 'dark');
+            document.getElementById('themeBtn').innerHTML = dark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        }
+
+        document.getElementById('btnPrevModal').onclick = (e) => { e.stopPropagation(); iAct = (iAct - 1 + pAct.items.length) % pAct.items.length; actualizarModal(); };
+        document.getElementById('btnNextModal').onclick = (e) => { e.stopPropagation(); iAct = (iAct + 1) % pAct.items.length; actualizarModal(); };
+
         window.onload = render;
     </script>
 </body>
